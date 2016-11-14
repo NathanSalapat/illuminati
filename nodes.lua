@@ -1,3 +1,23 @@
+-- Craft Recipes
+minetest.register_craft({
+      output = 'illuminati:core_off',
+      recipe = {
+         {'dye:red', 'default:mese_crystal', 'dye:red'},
+         {'dye:red', 'default:diamond', 'dye:red'},
+         {'default:obsidian_shard', 'default:obsidian_shard', 'default:obsidian_shard'},
+         }
+})
+
+minetest.register_craft({
+      output = 'illuminati:cone_off',
+      recipe = {
+         {'', 'default:mese_crystal_fragment', ''},
+         {'default:mese_crystal_fragment', 'default:gold_ingot', 'default:mese_crystal_fragment'},
+         {'default:gold_ingot', 'default:gold_ingot', 'default:gold_ingot'},
+         }
+})
+
+-- Node Registration
 minetest.register_node('illuminati:core_off',{
   description = 'The source of power',
   drawtype = 'mesh',
