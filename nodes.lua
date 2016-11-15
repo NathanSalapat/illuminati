@@ -36,30 +36,30 @@ minetest.register_node('illuminati:core_off',{
      fixed = {-.4, -.5, -.4, .4, .5, .4},
      },
    after_place_node = function(pos, itemstack)
-      local n = minetest.get_node(pos)
-      local p1 = {x=pos.x, y=pos.y-1, z=pos.z}
-      local p2 = {x=pos.x, y=pos.y-2, z=pos.z}
-      local n1 = minetest.get_node_or_nil(p1)
-      local n2 = minetest.get_node_or_nil(p2)
-      if n1.name == 'default:diamondblock' and n2.name == 'default:diamondblock' then
-         local ps1 = {x=pos.x-3, y=pos.y-1, z=pos.z}
-         local pw1 = {x=pos.x+3, y=pos.y-1, z=pos.z}
-         local pn1 = {x=pos.x, y=pos.y-1, z=pos.z-3}
-         local pe1 = {x=pos.x, y=pos.y-1, z=pos.z+3}
-         local ns1 = minetest.get_node_or_nil(ps1)
-         local nw1 = minetest.get_node_or_nil(pw1)
-         local nn1 = minetest.get_node_or_nil(pn1)
-         local ne1 = minetest.get_node_or_nil(pe1)
-         if ns1.name == 'illuminati:cone_off' and nw1.name == 'illuminati:cone_off' and nn1.name == 'illuminati:cone_off' and ne1.name == 'illuminati:cone_off' then
-            local ps2 = {x=pos.x-3, y=pos.y-2, z=pos.z}
-            local pw2 = {x=pos.x+3, y=pos.y-2, z=pos.z}
-            local pn2 = {x=pos.x, y=pos.y-2, z=pos.z-3}
-            local pe2 = {x=pos.x, y=pos.y-2, z=pos.z+3}
-            local ns2 = minetest.get_node_or_nil(ps2)
-            local nw2 = minetest.get_node_or_nil(pw2)
-            local nn2 = minetest.get_node_or_nil(pn2)
-            local ne2 = minetest.get_node_or_nil(pe2)
-            if ns2.name == 'default:goldblock' and nw2.name == 'default:goldblock' and nn2.name == 'default:goldblock' and ne2.name == 'default:goldblock' then
+     local n = minetest.get_node(pos)
+     local p1 = {x=pos.x, y=pos.y-1, z=pos.z}
+     local p2 = {x=pos.x, y=pos.y-2, z=pos.z}
+     local n1 = minetest.get_node_or_nil(p1)
+     local n2 = minetest.get_node_or_nil(p2)
+     if n1.name == 'default:diamondblock' and n2.name == 'default:diamondblock' then
+        local ps1 = {x=pos.x-3, y=pos.y-1, z=pos.z}
+        local pw1 = {x=pos.x+3, y=pos.y-1, z=pos.z}
+        local pn1 = {x=pos.x, y=pos.y-1, z=pos.z-3}
+        local pe1 = {x=pos.x, y=pos.y-1, z=pos.z+3}
+        local ns1 = minetest.get_node_or_nil(ps1)
+        local nw1 = minetest.get_node_or_nil(pw1)
+        local nn1 = minetest.get_node_or_nil(pn1)
+        local ne1 = minetest.get_node_or_nil(pe1)
+        if ns1.name == 'illuminati:cone_off' and nw1.name == 'illuminati:cone_off' and nn1.name == 'illuminati:cone_off' and ne1.name == 'illuminati:cone_off' then
+           local ps2 = {x=pos.x-3, y=pos.y-2, z=pos.z}
+           local pw2 = {x=pos.x+3, y=pos.y-2, z=pos.z}
+           local pn2 = {x=pos.x, y=pos.y-2, z=pos.z-3}
+           local pe2 = {x=pos.x, y=pos.y-2, z=pos.z+3}
+           local ns2 = minetest.get_node_or_nil(ps2)
+           local nw2 = minetest.get_node_or_nil(pw2)
+           local nn2 = minetest.get_node_or_nil(pn2)
+           local ne2 = minetest.get_node_or_nil(pe2)
+           if ns2.name == 'default:goldblock' and nw2.name == 'default:goldblock' and nn2.name == 'default:goldblock' and ne2.name == 'default:goldblock' then
    			   minetest.set_node(pos,{name = 'illuminati:core_on', param2=n.param2})
                minetest.set_node(ps1,{name = 'illuminati:cone_on'})
                minetest.set_node(pw1,{name = 'illuminati:cone_on'})
@@ -130,6 +130,18 @@ minetest.register_node('illuminati:cone_off',{
      type = 'fixed',
      fixed = {-.5, -.5, -.5, .5, .35, .5},
      },
+   after_place_node = function(pos, placer)
+      local key = #(minetest.get_connected_players())
+      local people = minetest.get_connected_players()
+      local person = math.random(1, key)
+      local name1 = people[person]
+      local name = name1:get_player_name()
+      local placer_name = placer:get_player_name()
+      if name ~= placer_name then
+         minetest.chat_send_player(name, send_message(illuminati.core_message_table))
+      end
+   end,
+
 })
 
 minetest.register_node('illuminati:cone_on',{
