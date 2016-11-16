@@ -19,11 +19,16 @@ function send_message(table)
    return message
 end
 
-minetest.register_on_chat_message(function(name,message)
-  if string.match(message, 'foobar') then
-    minetest.chat_send_all('<Illuminati> Hush, this is not public information.')
-  end
-end)
+function select_player(player, table)
+   local key = #(minetest.get_connected_players())
+   local people = minetest.get_connected_players()
+   local person = math.random(1, key)
+   local name1 = people[person]
+   local name = player:get_player_name()
+   if name1 ~= player then
+      minetest.chat_send_player(name, send_message(table))
+   end
+end
 
 minetest.register_on_chat_message(function(name,message)
   if string.match(message, '%p%p%p%p%p%p%p%p') then
@@ -32,12 +37,5 @@ minetest.register_on_chat_message(function(name,message)
 end)
 
 minetest.register_on_dieplayer(function(player)
-   local key = #(minetest.get_connected_players())
-   local people = minetest.get_connected_players()
-   local person = math.random(1, key)
-   local name1 = people[person]
-   local name = name1:get_player_name()
-   if name1 ~= player then
-      minetest.chat_send_player(name, send_message(illuminati.death_message_table))
-   end
+   select_player(player, illuminati.death_message_table)
 end)

@@ -131,17 +131,8 @@ minetest.register_node('illuminati:cone_off',{
      fixed = {-.5, -.5, -.5, .5, .35, .5},
      },
    after_place_node = function(pos, placer)
-      local key = #(minetest.get_connected_players())
-      local people = minetest.get_connected_players()
-      local person = math.random(1, key)
-      local name1 = people[person]
-      local name = name1:get_player_name()
-      local placer_name = placer:get_player_name()
-      if name ~= placer_name then
-         minetest.chat_send_player(name, send_message(illuminati.core_message_table))
-      end
+      select_player(placer, illuminati.core_message_table)
    end,
-
 })
 
 minetest.register_node('illuminati:cone_on',{
