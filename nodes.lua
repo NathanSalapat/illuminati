@@ -98,9 +98,23 @@ minetest.register_node('illuminati:core_on',{
      fixed = {-.4, -.5, -.4, .4, .5, .4},
      },
   on_construct = function(pos)
-    print 'seeing if this calls when the node is placed.'
-    -- I'll eventually make something happen more than changing the nodes.
-    -- Maybe the crystals with generate some items or do something.
+    local meta = minetest.env:get_meta(pos)
+    local inv = meta:get_inventory()
+    inv:set_size('main', 8*4)
+    inv:set_size('dst', 1)
+    meta:set_string('formspec',
+      'size[8,6]'..
+      'label[2.65,0;#_#~~ ^ |-| ^ ~~#_#]'..
+      'list[current_name;dst;3.5,1;1,1;]'..
+      'list[current_player;main;0,2.25;8,4;]'..
+      'listring[]')
+  end,
+  on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+    local damage_chance = math.random(1,2)
+    if damage_chance == 1 then
+      local hp = player:get_hp()
+      player:set_hp(hp - 1)
+    end
   end,
   after_dig_node = function(pos)
     local ps1 = {x=pos.x-3, y=pos.y-1, z=pos.z}

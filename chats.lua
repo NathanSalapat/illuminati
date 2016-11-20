@@ -30,12 +30,6 @@ function select_player(player, table)
    end
 end
 
-minetest.register_on_chat_message(function(name,message)
-  if string.match(message, '%p%p%p%p%p%p%p%p') then
-    minetest.chat_send_player(name, '<Illuminati> Do you have a broken keyboard?')
-  end
-end)
-
 minetest.register_on_dieplayer(function(player)
    select_player(player, illuminati.death_message_table)
 end)
