@@ -65,6 +65,12 @@ minetest.register_node('illuminati:core_off',{
                minetest.set_node(pw1,{name = 'illuminati:cone_on'})
                minetest.set_node(pn1,{name = 'illuminati:cone_on'})
                minetest.set_node(pe1,{name = 'illuminati:cone_on'})
+               minetest.set_node(p1,{name = 'illuminati:diamondblock'})
+               minetest.set_node(p2,{name = 'illuminati:diamondblock'})
+               minetest.set_node(ps2,{name = 'illuminati:goldblock'})
+               minetest.set_node(pw2,{name = 'illuminati:goldblock'})
+               minetest.set_node(pn2,{name = 'illuminati:goldblock'})
+               minetest.set_node(pe2,{name = 'illuminati:goldblock'})
             end
          end
       end
@@ -117,14 +123,26 @@ minetest.register_node('illuminati:core_on',{
     end
   end,
   after_dig_node = function(pos)
-    local ps1 = {x=pos.x-3, y=pos.y-1, z=pos.z}
-    local pw1 = {x=pos.x+3, y=pos.y-1, z=pos.z}
-    local pn1 = {x=pos.x, y=pos.y-1, z=pos.z-3}
-    local pe1 = {x=pos.x, y=pos.y-1, z=pos.z+3}
-    minetest.set_node(ps1,{name = 'illuminati:cone_off'})
-    minetest.set_node(pw1,{name = 'illuminati:cone_off'})
-    minetest.set_node(pn1,{name = 'illuminati:cone_off'})
-    minetest.set_node(pe1,{name = 'illuminati:cone_off'})
+    local d1 = {x=pos.x, y=pos.y-1, z=pos.z}
+    local d2 = {x=pos.x, y=pos.y-2, z=pos.z}
+    local cs1 = {x=pos.x-3, y=pos.y-1, z=pos.z}
+    local cw1 = {x=pos.x+3, y=pos.y-1, z=pos.z}
+    local cn1 = {x=pos.x, y=pos.y-1, z=pos.z-3}
+    local ce1 = {x=pos.x, y=pos.y-1, z=pos.z+3}
+    local gs2 = {x=pos.x-3, y=pos.y-2, z=pos.z}
+    local gw2 = {x=pos.x+3, y=pos.y-2, z=pos.z}
+    local gn2 = {x=pos.x, y=pos.y-2, z=pos.z-3}
+    local ge2 = {x=pos.x, y=pos.y-2, z=pos.z+3}
+    minetest.set_node(d1,{name = 'default:diamondblock'})
+    minetest.set_node(d2,{name = 'default:diamondblock'})
+    minetest.set_node(cs1,{name = 'illuminati:cone_off'})
+    minetest.set_node(cw1,{name = 'illuminati:cone_off'})
+    minetest.set_node(cn1,{name = 'illuminati:cone_off'})
+    minetest.set_node(ce1,{name = 'illuminati:cone_off'})
+    minetest.set_node(gs2,{name = 'default:goldblock'})
+    minetest.set_node(gw2,{name = 'default:goldblock'})
+    minetest.set_node(gn2,{name = 'default:goldblock'})
+    minetest.set_node(ge2,{name = 'default:goldblock'})
   end,
 })
 
@@ -166,4 +184,16 @@ minetest.register_node('illuminati:cone_on',{
      type = 'fixed',
      fixed = {-.5, -.5, -.5, .5, .35, .5},
      },
+})
+
+minetest.register_node("illuminati:goldblock", {
+	description = "hu?",
+	tiles = {"default_gold_block.png"},
+   groups = {not_in_creative_inventory=1},
+})
+
+minetest.register_node("illuminati:diamondblock", {
+	description = "Not sure how you got this.",
+	tiles = {"default_diamond_block.png"},
+   groups = {not_in_creative_inventory=1},
 })
